@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "Vintage store hompage"
 }
 
-const Homepage = () => {
+const Homepage = async () => {
   return <>Vintagestore</>
 }
 
