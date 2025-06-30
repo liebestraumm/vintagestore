@@ -3,9 +3,10 @@ import Link from "next/link";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import ProductPrice from "./product-price";
+import { Product } from "@/types";
 
 interface ProductCardProps {
-  product: any;
+  product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
