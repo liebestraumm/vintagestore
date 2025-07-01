@@ -21,14 +21,14 @@ const ProductImages = ({ images }: IProductImagesProps) => {
         alt="hero image"
         width={1000}
         height={1000}
-        className="min-h-[300px] object-cover object-center "
+        className="min-h-[300px] object-cover object-center"
       />
       <div className="flex justify-center">
         {images.map((image, index) => (
           <div
             key={image}
             className={cn(
-              "border   mr-2 cursor-pointer hover:border-orange-600 transition-all ease-linear duration-200",
+              "border mr-2 cursor-pointer hover:border-orange-600 transition-all ease-linear duration-200",
               current === index && "  border-orange-500"
             )}
             onClick={showLargeImage.bind(null, index)}
