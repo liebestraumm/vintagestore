@@ -1,12 +1,12 @@
 import { Product } from "@/types";
 import ProductCard from "./product-card";
 
-interface ProductListProps {
+interface IProductListProps {
   data: Product[];
   title?: string;
 }
 
-const ProductList = (props: ProductListProps) => {
+const ProductList = (props: IProductListProps) => {
   const { data, title } = props;
   return (
     <div className="my-10">

@@ -5,11 +5,11 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import ProductPrice from "./product-price";
 import { Product } from "@/types";
 
-interface ProductCardProps {
+interface IProductCardProps {
   product: Product;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product }: IProductCardProps) => {
   return (
     <Card className="w-full max-w-sm mx-auto">
       <CardHeader className="p-0 items-center">
