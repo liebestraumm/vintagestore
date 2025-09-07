@@ -15,6 +15,7 @@ declare module "next-auth" {
 }
 
 const authConfig: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET || "fallback-secret-for-development",
   pages: {
     signIn: "/sign-in",
     error: "/sign-in",
@@ -69,7 +70,15 @@ const authConfig: NextAuthOptions = {
       }
       return session;
     },
+    async jwt({ token, user }) {
+      // Persist the user data in the JWT token
+      if (user) {
+        token.id = user.id;
+        token.role = (user as { role?: string }).role;
+      }
+      return token;
+    },
   },
 };
 
-export default authConfig;
+export default authConfig
