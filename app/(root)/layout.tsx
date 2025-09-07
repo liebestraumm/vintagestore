@@ -1,11 +1,9 @@
 import Footer from "@/components/footer";
 import Header from "@/components/shared/header";
+import { IChildrenNode } from "@/interfaces/IChildrenNode";
+import { FC } from "react";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const RootLayout: FC<IChildrenNode> = ({ children }) => {
   return (
     <div className="flex h-screen flex-col">
       <Header />
@@ -13,4 +11,6 @@ export default function RootLayout({
       <Footer />
     </div>
   );
-}
+};
+
+export default RootLayout;

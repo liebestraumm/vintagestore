@@ -4,12 +4,13 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import ProductPrice from "./product-price";
 import { Product } from "@/types";
+import { FC } from "react";
 
 interface IProductCardProps {
   product: Product;
 }
 
-const ProductCard = ({ product }: IProductCardProps) => {
+const ProductCard: FC<IProductCardProps> = ({ product }) => {
   return (
     <Card className="w-full max-w-sm mx-auto">
       <CardHeader className="p-0 items-center">
@@ -32,7 +33,7 @@ const ProductCard = ({ product }: IProductCardProps) => {
         <div className="flex flex-between">
           <p>{product.rating} stars</p>
           {product.stock > 0 ? (
-            <ProductPrice value={Number(product.price)}/>
+            <ProductPrice value={Number(product.price)} />
           ) : (
             <p className="text-destructive">Out of Stock</p>
           )}

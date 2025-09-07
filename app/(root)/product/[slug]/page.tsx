@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getProductBySlug } from "@/lib/actions/product.actions";
 import { notFound } from "next/navigation";
+import { FC } from "react";
 
 interface IProductDetailsPageProps {
   params: Promise<{ slug: string }>;
 }
 
-const ProductDetailsPage = async (props: IProductDetailsPageProps) => {
-  const { slug } = await props.params;
+const ProductDetailsPage: FC<IProductDetailsPageProps> = async ({ params }) => {
+  const { slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 

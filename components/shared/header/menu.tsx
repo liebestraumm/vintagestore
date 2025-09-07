@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/sheet";
 import Link from "next/link";
 import ModeToggle from "./mode-toggle";
+import { FC } from "react";
 
-const Menu = () => {
+const Menu: FC = () => {
   return (
     <>
       <div className="flex justify-end gap-3">

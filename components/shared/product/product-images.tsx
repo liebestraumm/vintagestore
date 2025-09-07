@@ -2,13 +2,13 @@
 import Image from "next/image";
 
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { FC, useState } from "react";
 
 interface IProductImagesProps {
   images: string[];
 }
 
-const ProductImages = ({ images }: IProductImagesProps) => {
+const ProductImages: FC<IProductImagesProps> = ({ images }) => {
   const [current, setCurrent] = useState(0);
   const showLargeImage = (imageIndex: number) => {
     setCurrent(imageIndex);

@@ -1,13 +1,13 @@
 import { Product } from "@/types";
 import ProductCard from "./product-card";
+import { FC } from "react";
 
 interface IProductListProps {
   data: Product[];
   title?: string;
 }
 
-const ProductList = (props: IProductListProps) => {
-  const { data, title } = props;
+const ProductList: FC<IProductListProps> = ({data, title}) => {
   return (
     <div className="my-10">
       <h2 className="h2-bold mb-4">{title}</h2>
