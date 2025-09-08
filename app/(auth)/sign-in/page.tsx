@@ -13,16 +13,21 @@ import CredentialsSignInForm from "./credentials-signin-form";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import authConfig from "@/app/authConfig";
+import { FC } from "react";
 
 export const metadata: Metadata = {
   title: "Sign In",
 };
 
-const SignIn = async () => {
-  const session = await getServerSession(authConfig);
+interface ISignInProps {
+  searchParams: Promise<{ callbackUrl: string }>;
+}
 
+const SignIn: FC<ISignInProps> = async ({ searchParams }) => {
+  const session = await getServerSession(authConfig);
+  const { callbackUrl } = await searchParams;
   if (session) {
-    redirect("/");
+    return redirect(callbackUrl || "/");
   }
 
   return (

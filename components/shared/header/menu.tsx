@@ -1,4 +1,4 @@
-import { EllipsisVertical, ShoppingCart, UserIcon } from "lucide-react";
+import { EllipsisVertical, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -10,8 +10,12 @@ import {
 import Link from "next/link";
 import ModeToggle from "./mode-toggle";
 import { FC } from "react";
+import UserButton from "./user-button";
+import { getServerSession } from "next-auth";
+import authConfig from "@/app/authConfig";
 
-const Menu: FC = () => {
+const Menu: FC = async () => {
+  const session = await getServerSession(authConfig);
   return (
     <>
       <div className="flex justify-end gap-3">
@@ -23,12 +27,7 @@ const Menu: FC = () => {
               Cart
             </Link>
           </Button>
-          <Button asChild>
-            <Link href="/sign-in">
-              <UserIcon />
-              Sign In
-            </Link>
-          </Button>
+          <UserButton session={session} />
         </nav>
         <nav className="md:hidden">
           <Sheet>
@@ -44,12 +43,7 @@ const Menu: FC = () => {
                   Cart
                 </Link>
               </Button>
-              <Button asChild>
-                <Link href="/sign-in">
-                  <UserIcon />
-                  Sign In
-                </Link>
-              </Button>
+              <UserButton session={session} />
               <SheetDescription></SheetDescription>
             </SheetContent>
           </Sheet>
