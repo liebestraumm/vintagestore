@@ -9,20 +9,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { APP_NAME } from "@/lib/constants";
-import CredentialsSignInForm from "./credentials-signin-form";
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 import authConfig from "@/app/authConfig";
+import { redirect } from "next/navigation";
 import { FC } from "react";
 import { ISearchParams } from "@/interfaces/ParamsInterfaces";
+import { getServerSession } from "next-auth";
+import SignUpForm from "./signup-form";
 
 export const metadata: Metadata = {
-  title: "Sign In",
+  title: "Sign Up",
 };
 
-const SignIn: FC<ISearchParams> = async ({ searchParams }) => {
+const SignUp: FC<ISearchParams> = async ({ searchParams }) => {
+  const params = await searchParams;
+
+  const { callbackUrl } = params;
+
   const session = await getServerSession(authConfig);
-  const { callbackUrl } = await searchParams;
+
   if (session) {
     return redirect(callbackUrl || "/");
   }
@@ -33,24 +37,24 @@ const SignIn: FC<ISearchParams> = async ({ searchParams }) => {
         <CardHeader className="space-y-4">
           <Link href="/" className="flex-center">
             <Image
-              priority
+              priority={true}
               src="/images/logo.svg"
               width={100}
               height={100}
               alt={`${APP_NAME} logo`}
             />
           </Link>
-          <CardTitle className="text-center">Sign In</CardTitle>
+          <CardTitle className="text-center">Create Account</CardTitle>
           <CardDescription className="text-center">
-            Select a method to sign in to your account
+            Enter your information below to create your account
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <CredentialsSignInForm />
+          <SignUpForm />
         </CardContent>
       </Card>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;

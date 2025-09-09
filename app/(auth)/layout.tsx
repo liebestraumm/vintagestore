@@ -1,4 +1,4 @@
-import { IChildrenNode } from "@/interfaces/IChildrenNode";
+import { IChildrenNode } from "@/interfaces/ParamsInterfaces";
 import { FC } from "react";
 
 const Layout: FC<IChildrenNode> = ({ children }) => {

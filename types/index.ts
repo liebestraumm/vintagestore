@@ -7,3 +7,8 @@ export type Product = z.infer<typeof insertProductSchema> & {
   rating: string;
   numReviews: number;
 };
+
+export type PrismaUniqueConstraintError = {
+  code: "P2002";
+  meta?: { target?: string[] };
+};

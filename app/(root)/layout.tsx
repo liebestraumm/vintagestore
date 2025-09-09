@@ -1,6 +1,6 @@
 import Footer from "@/components/footer";
 import Header from "@/components/shared/header";
-import { IChildrenNode } from "@/interfaces/IChildrenNode";
+import { IChildrenNode } from "@/interfaces/ParamsInterfaces";
 import { FC } from "react";
 
 const RootLayout: FC<IChildrenNode> = ({ children }) => {

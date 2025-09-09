@@ -1,4 +1,5 @@
 "use server";
+
 import { LATEST_PRODUCTS_LIMIT } from "../constants";
 import { prisma } from "@/db/prisma";
 

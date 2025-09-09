@@ -6,11 +6,22 @@ import { prisma } from "@/db/prisma";
 declare module "next-auth" {
   interface Session {
     user: {
-      id: string | undefined;
+      id: string | unknown;
       name?: string | null;
-      email?: string | null;
-      image?: string | null;
+      role?: string | unknown;
     };
+  }
+    interface User {
+    id: string;
+    name?: string | null;
+    role?: string | null;
+  }
+}
+
+declare module "next-auth/adapters" {
+  interface AdapterUser {
+    id: string
+    role?: string | null;
   }
 }
 
@@ -63,22 +74,48 @@ const authConfig: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, token }) {
+    async session({ session, token, trigger }) {
       // Set the user id on the session
       if (token.sub) {
         session.user.id = token.sub;
       }
+      // Map the token data to the session object
+      session.user.role = token.role;
+
+      // Optionally handle session updates (like name change)
+      if (trigger === "update" && token.name) {
+        session.user.name = token.name;
+      }
+
+      // Return the updated session object
       return session;
     },
-    async jwt({ token, user }) {
-      // Persist the user data in the JWT token
+    async jwt({ token, user, trigger, session }) {
+      
+      // Assign user fields to token
       if (user) {
-        token.id = user.id;
-        token.role = (user as { role?: string }).role;
+        token.role = user.role;
+
+        // If user has no name, use email as their default name. Useful for third-party providers (i.e Google, Facebook providers)
+        if (user.name === "NO_NAME") {
+          token.name = user.email!.split("@")[0];
+
+          // Update the user in the database with the new name
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { name: token.name },
+          });
+        }
       }
+
+      // Handle session updates (e.g., name change)
+      if (session?.user.name && trigger === "update") {
+        token.name = session.user.name;
+      }
+
       return token;
     },
   },
 };
 
-export default authConfig
+export default authConfig;
