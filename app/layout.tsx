@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { FC } from "react";
 import { IChildrenNode } from "@/interfaces/ParamsInterfaces";
 import { Analytics } from "@vercel/analytics/react";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,20 @@ const RootLayout: FC<IChildrenNode> = ({ children }) => {
           disableTransitionOnChange
         >
           {children}
+          <Toaster
+            position="top-center"
+            closeButton
+            mobileOffset={{ top: 10 }}
+            toastOptions={{
+              classNames: {
+                success: "!bg-green-600",
+                error: "!bg-red-500",
+                title: "!text-white",
+                icon: "text-white",
+                closeButton: "!left-[99%]"
+              },
+            }}
+          />
           <Analytics />
         </ThemeProvider>
       </body>
